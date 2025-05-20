@@ -44,6 +44,19 @@ module "role_policy" {
   source = "westelh/policy/vault"
   version = "0.0.1"
   name = "${var.path}-role-${each.value.kubernetes_role_name}"
+  description = "User policy for ${var.path}/${each.value.name}"
+  rules = [
+    {
+      description = "Read role"
+      path = "${var.path}/role/${each.value.name}"
+      capabilities = ["read"]
+    },
+    {
+      description = "Generate credentials"
+      path = "${var.path}/creds/${each.value.name}"
+      capabilities = ["create"]
+    }
+  ]
 }
 
 module "clusterrole_policy" {
@@ -51,5 +64,17 @@ module "clusterrole_policy" {
   source = "westelh/policy/vault"
   version = "0.0.1"
   name = "${var.path}-clusterrole-${each.value.kubernetes_role_name}"
+  rules = [
+    {
+      description = "Read role"
+      path = "${var.path}/role/${each.value.name}"
+      capabilities = ["read"]
+    },
+    {
+      description = "Generate credentials"
+      path = "${var.path}/creds/${each.value.name}"
+      capabilities = ["create"]
+    }
+  ]
 }
 
