@@ -38,3 +38,18 @@ resource "vault_kubernetes_secret_backend_role" "clusterrole" {
   extra_labels = var.extra_labels
   extra_annotations = var.extra_annotations
 }
+
+module "role_policy" {
+  for_each = vault_kubernetes_secret_backend_role.role
+  source = "westelh/policy/vault"
+  version = "0.0.1"
+  name = "${var.path}-role-${each.value.kubernetes_role_name}"
+}
+
+module "clusterrole_policy" {
+  for_each = vault_kubernetes_secret_backend_role.clusterrole
+  source = "westelh/policy/vault"
+  version = "0.0.1"
+  name = "${var.path}-clusterrole-${each.value.kubernetes_role_name}"
+}
+
