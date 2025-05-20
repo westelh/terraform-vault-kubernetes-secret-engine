@@ -33,6 +33,7 @@ resource "vault_kubernetes_secret_backend_role" "clusterrole" {
 
   name = "auto-sa-bound-to-clusterrole-${each.key}"
   kubernetes_role_name = each.key
+  allowed_kubernetes_namespaces = each.value
 
   extra_labels = var.extra_labels
   extra_annotations = var.extra_annotations
