@@ -64,6 +64,7 @@ module "clusterrole_policy" {
   source = "westelh/policy/vault"
   version = "0.0.1"
   name = "${var.path}-clusterrole-${each.value.kubernetes_role_name}"
+  description = "User policy for ${var.path}/${each.value.name}"
   rules = [
     {
       description = "Read role"
