@@ -8,24 +8,26 @@ variable "description" {
   description = "Description for secret backend"
 }
 
-variable "unique_service_accounts" {
-  type = map(string)
-  description = "A map where each key is the name of a Kubernetes ServiceAccount, and each corresponding value is the namespace in which that ServiceAccount is defined."
-}
-
-variable "roles_and_allowed_ns" {
+variable "roles" {
   type = map(list(string))
 }
 
 variable "cluster_roles" {
   type = map(list(string))
+  default = {
+    "admin" = [ "*" ]
+    "edit" = [ "*" ]
+    "view" = [ "*" ]
+  }
 }
 
 variable "extra_annotations" {
   type = map(string)
+  default = {}
 }
 
 variable "extra_labels" {
   type = map(string)
+  default = {}
 }
 

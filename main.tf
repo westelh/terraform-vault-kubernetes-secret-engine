@@ -12,7 +12,7 @@ resource "vault_kubernetes_secret_backend" "main" {
 }
 
 resource "vault_kubernetes_secret_backend_role" "role" {
-  for_each = var.roles_and_allowed_ns
+  for_each = var.roles
 
   backend = vault_kubernetes_secret_backend.main.path
   kubernetes_role_type = "Role"
@@ -26,7 +26,7 @@ resource "vault_kubernetes_secret_backend_role" "role" {
 }
 
 resource "vault_kubernetes_secret_backend_role" "clusterrole" {
-  for_each = var.roles_and_allowed_ns
+  for_each = var.cluster_roles
 
   backend = vault_kubernetes_secret_backend.main.path
   kubernetes_role_type = "ClusterRole"
