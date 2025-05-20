@@ -54,7 +54,7 @@ module "role_policy" {
     {
       description = "Generate credentials"
       path = "${var.path}/creds/${each.value.name}"
-      capabilities = ["create"]
+      capabilities = ["create", "update"]
     }
   ]
 }
@@ -74,7 +74,7 @@ module "clusterrole_policy" {
     {
       description = "Generate credentials"
       path = "${var.path}/creds/${each.value.name}"
-      capabilities = ["create"]
+      capabilities = ["create", "update"]
     }
   ]
 }
